@@ -12,6 +12,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/eshref/Simbrella.Infrastructure.Time</PackageProjectUrl>
 		<PackageIcon>simbrella-logo.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageTags>Time;Testing</PackageTags>
 		<PackageReleaseNotes>https://github.com/eshref/Simbrella.Infrastructure.Time/releases</PackageReleaseNotes>
 	</PropertyGroup>
