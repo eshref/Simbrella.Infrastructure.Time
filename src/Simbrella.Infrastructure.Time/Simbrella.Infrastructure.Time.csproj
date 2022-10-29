@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
+		<Description>This package provides abstraction over DateTime.Now usage and other timing features of dotnet.</Description>
 		<Product>Simbrella.Infrastructure.Time</Product>
 		<Title>$(Product)</Title>
 		<PackageTags>$(PackageTags)</PackageTags>
