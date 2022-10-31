@@ -16,11 +16,6 @@ jobs:
       PROJECT_PATH: './src/Simbrella.Infrastructure.Time/Simbrella.Infrastructure.Time.csproj'
 
     steps:
-      - uses: actions/checkout@v3
-    
-      #- name: Set Environment Variables
-      #  uses: ./.github/actions/set-env
-
       - uses: actions/checkout@v2
 
       - name: Setup dotnet
@@ -35,16 +30,7 @@ jobs:
       - name: Build
         run: dotnet build -c Release --no-restore
         working-directory: src
-
-      - name: Create PreRelease Artifact
-        run: dotnet pack ${{ env.PROJECT_PATH }} -c Release --no-build --include-symbols -o ./artifacts/prerelease --version-suffix prerelease-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT
-
-      - name: 'Save prerelease artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: prerelease
-          path: ./artifacts/prerelease/*
-
+        
       - name: Create Release Artifact
         run: dotnet pack ${{ env.PROJECT_PATH }} -c Release --no-build --include-symbols -o ./artifacts/release
 
@@ -52,26 +38,12 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: release
-          path: ./artifacts/release/*
-
-  publishPreRelease:
-    name: Publish PreRelease NuGet Package
-    environment: prerelease
-    needs: createArtifacts
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: prerelease
-          
-      - name: Publish NuGet Package
-        run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }}
+          path: ./artifacts/release/*  
 
   publishRelease:
     name: Publish Release NuGet Package
     environment: release
-    needs: [createArtifacts, publishPreRelease]
+    needs: createArtifacts
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
